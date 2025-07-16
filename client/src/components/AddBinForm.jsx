@@ -34,7 +34,22 @@ const AddBinForm = ({ onBinAdded }) => {
   };
 
   return (
-    <div style={{ padding: '20px', border: '1px solid #ccc', marginBottom: '20px', borderRadius: '8px' }}>
+    <div>
+      <br></br>
+      <br /><br />
+    
+    {/* <div style={{ padding: '20px', border: '1px solid #ccc', marginBottom: '20px', borderRadius: '8px' }}> */}
+    <div
+  style={{
+    paddingTop: '5px',
+    paddingRight: '15px',
+    paddingBottom: '15px',
+    paddingLeft: '30px',
+    border: '1px solid #ccc',
+    marginBottom: '20px',
+    borderRadius: '8px'
+  }}
+>
       <h2>Add New Bin</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -77,6 +92,7 @@ const AddBinForm = ({ onBinAdded }) => {
         </div>
         <button type="submit" style={{ marginTop: '10px' }}>Add Bin</button>
       </form>
+    </div>
     </div>
   );
 };

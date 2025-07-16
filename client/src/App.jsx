@@ -7,6 +7,9 @@ import BinTable from './components/BinTable';
 import BinAnalytics from './components/BinAnalytics';
 import BinDashboard from './components/BinDashboard';
 import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -15,20 +18,21 @@ function App() {
     setRefreshTrigger(prev => prev + 1);
   };
 
-  const user = {
-    name: "Bhavyasri" // Replace later with actual login logic
-  };
+  // const user = {
+  //   name: "Bhavyasri" // Replace later with actual login logic
+  // };
+  const [user, setUser] = useState(null);
 
   return (
     <Router>
       {/* Fixed Navbar */}
-      <Navbar user={user} />
+      <Navbar user={user} setUser={setUser}/>
 
       {/* Main Content Area */}
       <div className="pt-20 min-h-screen bg-white px-4 sm:px-6">
         <Routes>
           {/* Home Page Layout */}
-          <Route
+          {/* <Route
             path="/"
             element={
               <div className="max-w-6xl mx-auto grid gap-6">
@@ -57,7 +61,13 @@ function App() {
                 </div>
               </div>
             }
-          />
+          /> */}
+
+          <Route path="/" element={<HomePage 
+                refreshTrigger={refreshTrigger} 
+                handleRefresh={handleRefresh} 
+              />} />
+
 
           {/* Dashboard Page */}
           <Route
@@ -108,6 +118,18 @@ function App() {
               </div>
             }
           />
+          {/* Add Bin Page */}
+          <Route
+            path="/fetch"
+            element={
+              <div className="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
+                <br /><br />
+                  <h1>Fetch Route page.</h1>
+              </div>
+            }
+          />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>

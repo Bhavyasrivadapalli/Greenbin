@@ -4,6 +4,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 const binRoutes = require('./routes/binRoutes'); // ✅ Import your binRoutes
+const authRoutes = require('./routes/auth'); // ✅ Import your binRoutes
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,6 +15,7 @@ app.use(express.json());
 
 // ✅ Mount all bin-related routes at /api
 app.use('/api', binRoutes);
+app.use('/api/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('GreenBin backend is running!');

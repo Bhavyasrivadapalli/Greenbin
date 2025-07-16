@@ -37,6 +37,8 @@ const BinMap = ({ refreshTrigger }) => {
 
   return (
     <div className="p-4">
+      <br></br>
+      <br></br>
       <h2 className="text-xl font-semibold mb-4">🗺️ Bin Map</h2>
       <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
