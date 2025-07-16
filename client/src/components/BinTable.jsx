@@ -124,47 +124,6 @@ const BinTable = ({ refreshTrigger, onDelete, onEdit, userType }) => {
             </tr>
           )}
         </tbody>
-
-        {/* <thead>
-          <tr className="bg-green-100">
-            <th className="border p-2">Location</th>
-            <th className="border p-2">Latitude</th>
-            <th className="border p-2">Longitude</th>
-            <th className="border p-2">Fill Level</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredBins.map((bin) => (
-            <tr key={bin._id}>
-              <td className="border p-2">{bin.location}</td>
-              <td className="border p-2">{bin.coordinates.lat}</td>
-              <td className="border p-2">{bin.coordinates.lng}</td>
-              <td className="border p-2">{bin.fillLevel}</td>
-              <td className="border p-2 text-center space-x-2">
-                <button
-                  onClick={() => handleEditClick(bin)}
-                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(bin._id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-          {filteredBins.length === 0 && (
-            <tr>
-              <td colSpan="5" className="text-center py-4 text-gray-500">
-                No bins match your criteria.
-              </td>
-            </tr>
-          )}
-        </tbody> */}
       </table>
 
       {/* ✏️ Edit Modal */}

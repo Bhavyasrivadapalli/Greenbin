@@ -18,9 +18,6 @@ function App() {
     setRefreshTrigger(prev => prev + 1);
   };
 
-  // const user = {
-  //   name: "Bhavyasri" // Replace later with actual login logic
-  // };
   const [user, setUser] = useState(null);
 
   return (
@@ -32,36 +29,7 @@ function App() {
       <div className="pt-20 min-h-screen bg-white px-4 sm:px-6">
         <Routes>
           {/* Home Page Layout */}
-          {/* <Route
-            path="/"
-            element={
-              <div className="max-w-6xl mx-auto grid gap-6">
-                <div className="bg-white rounded-xl shadow p-6">
-                  <AddBinForm onBinAdded={handleRefresh} />
-                </div>
-
-                <div className="bg-white rounded-xl shadow p-6">
-                  <BinMap refreshTrigger={refreshTrigger} />
-                </div>
-
-                <div className="bg-white rounded-xl shadow p-6">
-                  <BinDashboard refreshTrigger={refreshTrigger} />
-                </div>
-
-                <div className="bg-white rounded-xl shadow p-6">
-                  <BinTable
-                    onBinUpdated={handleRefresh}
-                    refreshTrigger={refreshTrigger}
-                    onDelete={handleRefresh}
-                  />
-                </div>
-
-                <div className="bg-white rounded-xl shadow p-6">
-                  <BinAnalytics refreshTrigger={refreshTrigger} />
-                </div>
-              </div>
-            }
-          /> */}
+          
 
           <Route path="/" element={<HomePage 
                 refreshTrigger={refreshTrigger} 

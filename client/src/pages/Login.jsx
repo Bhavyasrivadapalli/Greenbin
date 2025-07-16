@@ -27,7 +27,6 @@ const Login = ({ setUser }) => {
 
   return (
     <div className="max-w-md mx-auto mt-20 p-8 bg-white rounded shadow">
-      <br /><br />
       <h2 className="text-2xl font-bold text-green-700 mb-6 text-center">Login</h2>
       {error && <p className="text-red-600 mb-4 text-center">{error}</p>}
       <form onSubmit={handleLogin} className="flex flex-col gap-4">
