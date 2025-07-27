@@ -1,43 +1,63 @@
-// routes/routeOptimizer.js
 const express = require('express');
-const axios = require('axios');
 const router = express.Router();
 
-require('dotenv').config();
+// Haversine Distance Calculation
+function haversineDistance(coord1, coord2) {
+  const R = 6371; // Earth radius in km
+  const dLat = (coord2.lat - coord1.lat) * Math.PI / 180;
+  const dLon = (coord2.lng - coord1.lng) * Math.PI / 180;
+  const lat1 = coord1.lat * Math.PI / 180;
+  const lat2 = coord2.lat * Math.PI / 180;
 
-router.post('/optimize', async (req, res) => {
-  const { bins } = req.body; // [{ lat, lng }, ...]
-  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.sin(dLon / 2) ** 2 * Math.cos(lat1) * Math.cos(lat2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
 
-  if (!apiKey) {
-    return res.status(500).json({ error: 'API key missing' });
-  }
+// Nearest Neighbor Algorithm
+function optimizeRoute(bins) {
+  const route = [];
+  const visited = new Set();
+  let current = bins[0];
+  route.push(current);
+  visited.add(current._id);
 
-  if (!bins || bins.length < 2) {
-    return res.status(400).json({ error: 'At least 2 bin locations required' });
-  }
+  while (route.length < bins.length) {
+    let nearest = null;
+    let minDist = Infinity;
 
-  try {
-    const origin = bins[0];
-    const destination = bins[bins.length - 1];
-    const waypoints = bins.slice(1, bins.length - 1)
-      .map(loc => `via:${loc.lat},${loc.lng}`)
-      .join('|');
-
-    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}&waypoints=optimize:true|${waypoints}&key=${apiKey}`;
-
-    const response = await axios.get(url);
-    const data = response.data;
-
-    if (data.status !== 'OK') {
-      return res.status(500).json({ error: data.error_message || 'Route fetch failed' });
+    for (const bin of bins) {
+      if (!visited.has(bin._id)) {
+        const dist = haversineDistance(current.coordinates, bin.coordinates);
+        if (dist < minDist) {
+          minDist = dist;
+          nearest = bin;
+        }
+      }
     }
 
-    res.json({ optimizedRoute: data.routes[0] });
-  } catch (error) {
-    console.error('Error optimizing route:', error);
-    res.status(500).json({ error: 'Server error while optimizing route' });
+    if (nearest) {
+      route.push(nearest);
+      visited.add(nearest._id);
+      current = nearest;
+    }
   }
+
+  return route;
+}
+
+// POST /api/route/optimize
+router.post('/optimize', (req, res) => {
+  const { bins } = req.body;
+
+  if (!bins || bins.length === 0) {
+    return res.status(400).json({ message: 'No bins provided' });
+  }
+
+  const optimizedRoute = optimizeRoute(bins);
+  res.json({ optimizedRoute });
 });
 
 module.exports = router;

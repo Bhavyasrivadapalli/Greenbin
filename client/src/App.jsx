@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import OptimizedRoute from './components/OptimizedRoute';
 
 function App() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -86,16 +87,15 @@ function App() {
               </div>
             }
           />
-          {/* Add Bin Page */}
-          <Route
+         <Route
             path="/fetch"
             element={
               <div className="max-w-6xl mx-auto bg-white rounded-xl shadow p-6">
-                <br /><br />
-                  <h1>Fetch Route page.</h1>
+                <OptimizedRoute refreshTrigger={refreshTrigger} />
               </div>
             }
           />
+
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
         </Routes>

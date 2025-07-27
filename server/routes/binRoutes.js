@@ -3,7 +3,7 @@ const Bin = require('../models/Bin');
 const router = express.Router();
 
 // ✅ POST /api/bins
-router.post('/bins', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { location, coordinates, fillLevel } = req.body;
     const bin = new Bin({ location, coordinates, fillLevel });
@@ -15,7 +15,7 @@ router.post('/bins', async (req, res) => {
 });
 
 // ✅ GET /api/bins
-router.get('/bins', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const bins = await Bin.find();
     res.status(200).json(bins);
@@ -25,8 +25,8 @@ router.get('/bins', async (req, res) => {
 });
 
 // ✅ DELETE /api/bins/:id
-router.delete('/bins/:id', async (req, res) => {
-  console.log("Deleting bin with ID:", req.params.id);  // 👈 Add this for debugging
+router.delete('/:id', async (req, res) => {
+  console.log("Deleting bin with ID:", req.params.id);
   try {
     const binId = req.params.id;
     await Bin.findByIdAndDelete(binId);
@@ -37,7 +37,7 @@ router.delete('/bins/:id', async (req, res) => {
 });
 
 // ✅ PUT /api/bins/:id
-router.put('/bins/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const binId = req.params.id;
     const updatedBin = await Bin.findByIdAndUpdate(binId, req.body, { new: true });
@@ -46,9 +46,5 @@ router.put('/bins/:id', async (req, res) => {
     res.status(500).json({ message: 'Error updating bin', error: err });
   }
 });
-
-
-
-
 
 module.exports = router;

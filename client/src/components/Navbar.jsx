@@ -6,17 +6,18 @@ import {
   FaRoute,
   FaUser,
   FaTrashAlt,
+  FaHome,
 } from "react-icons/fa";
 
 const Navbar = ({ user, setUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-  setUser(null);
-  navigate("/login");
-};
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login");
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white shadow z-50 w-full">
@@ -32,6 +33,13 @@ const Navbar = ({ user, setUser }) => {
         <div className="flex items-center gap-10 justify-around">
           <div className="flex gap-12">
             <NavLink
+              to="/"
+              className="flex items-center gap-2 text-green-600 hover:text-green-800 font-medium transition-colors"
+            >
+              <FaHome /> Home
+            </NavLink>
+
+            <NavLink
               to="/map"
               className="flex items-center gap-2 text-green-600 hover:text-green-800 font-medium transition-colors"
             >
@@ -44,12 +52,14 @@ const Navbar = ({ user, setUser }) => {
             >
               <FaChartBar /> Analytics
             </NavLink>
+
             <NavLink
               to="/fetch"
               className="flex items-center gap-2 text-green-600 hover:text-green-800 font-medium transition-colors"
             >
               <FaRoute /> Fetch Route
             </NavLink>
+
             <NavLink
               to="/add"
               className="flex items-center gap-2 text-green-600 hover:text-green-800 font-medium transition-colors"
