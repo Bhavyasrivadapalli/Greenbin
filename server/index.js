@@ -3,12 +3,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+const verifyToken = require('./routes/verifyToken');
 const binRoutes = require('./routes/binRoutes');
 const authRoutes = require('./routes/auth');
-const routeOptimizer = require('./routes/routeOptimizer');
 const routeRoutes = require('./routes/route');
-
-
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,11 +15,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api/bins', binRoutes);
+// Public routes
 app.use('/api/auth', authRoutes);
-//app.use('/api/route', routeOptimizer);
-app.use('/api/route', routeRoutes);
+
+// Protected routes (must be logged in)
+app.use('/api/bins', verifyToken, binRoutes);
+app.use('/api/route', verifyToken, routeRoutes);
 
 app.get('/', (req, res) => {
   res.send('GreenBin backend is running!');
