@@ -22,7 +22,7 @@ Backend-Node.js,Express.js,JWT authentication,REST API architecture
 Database:MongoDB + Mongoose
 
 Installation and setup:
-step1:clone the repository
+step1:clone the repository - https://github.com/Bhavyasrivadapalli/greenbin
 
 
 step2:Run backend with the following commands - 
