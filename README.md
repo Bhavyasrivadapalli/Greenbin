@@ -40,8 +40,11 @@ npm run dev
 
 API ENDPOINTS:
 GET    /api/bins
+
 POST   /api/bins
+
 PUT    /api/bins/:id
+
 DELETE /api/bins/:id
 
 
@@ -49,8 +52,10 @@ Route optimization:
 POST /api/route/optimize
 
 
+
 Autentication:
 POST /api/auth/login
+
 POST /api/auth/register
 
 
